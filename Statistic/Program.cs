@@ -29,6 +29,19 @@ namespace Statistic
             {
                 median = numbers[count/2];
             }
+            
+            //mode for only one
+            var mode = numbers.GroupBy(n => n)
+                .OrderByDescending(g => g.Count())
+                .Select(g => g.Key)
+                .FirstOrDefault();
+
+            //mode for multiple
+            var modeMultiple = numbers.GroupBy(n => n)
+                .OrderByDescending(g => g.Count())
+                .Where(g => g.Count() == numbers.GroupBy(n => n).Max(g2 => g2.Count()))
+                .Select(g => g.Key)
+                .ToList();
         }
     }
 }
